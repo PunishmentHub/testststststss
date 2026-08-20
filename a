@@ -1,78 +1,423 @@
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local localPlayer = Players.LocalPlayer
+-- This file was generated at discord.gg/syncrypt
 
--- Locate the network bridge to talk to the server
-local changeAvatarEvent = ReplicatedStorage:WaitForChild("ChangeAvatarEvent")
+local t1 = {}
+_G.Code = ""
+t1["1"] = Instance.new("ScreenGui", game.CoreGui)
+t1["1"].Name = "Remote Spy"
+t1["1"].ResetOnSpawn = false
+t1["1"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+t1["2"] = Instance.new("Frame", t1["1"])
+t1["2"].BorderSizePixel = 0
+t1["2"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+t1["2"].Size = UDim2.new(0, 425, 0, 253)
+t1["2"].Position = UDim2.new(0.02067, 0, 0.17804, 0)
+t1["2"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+t1["3"] = Instance.new("Frame", t1["2"])
+t1["3"].BorderSizePixel = 0
+t1["3"].BackgroundColor3 = Color3.fromRGB(38, 36, 39)
+t1["3"].Size = UDim2.new(0, 425, 0, 18)
+t1["3"].Position = UDim2.new(0, 0, -0.00378, 0)
+t1["3"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+t1["3"].Name = "TopBar"
+t1["4"] = Instance.new("TextLabel", t1["3"])
+t1["4"].BorderSizePixel = 0
+t1["4"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+t1["4"].TextSize = 14
+t1["4"].FontFace = Font.new("rbxasset://fonts/families/Arial.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1["4"].TextColor3 = Color3.fromRGB(255, 255, 255)
+t1["4"].BackgroundTransparency = 1
+t1["4"].Size = UDim2.new(0, 58, 0, 14)
+t1["4"].BorderColor3 = Color3.fromRGB(255, 255, 255)
+t1["4"].Text = "Remote Spy"
+t1["4"].Name = "Name"
+t1["4"].Position = UDim2.new(0.02, 0, 0.07, 0)
+t1["5"] = Instance.new("TextButton", t1["3"])
+t1["5"].BorderSizePixel = 0
+t1["5"].TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+t1["5"].TextSize = 21
+t1["5"].TextColor3 = Color3.fromRGB(205, 205, 205)
+t1["5"].BackgroundColor3 = Color3.fromRGB(38, 36, 39)
+t1["5"].FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1["5"].RichText = true
+t1["5"].Size = UDim2.new(0, 24, 0, 18)
+t1["5"].Name = "X"
+t1["5"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+t1["5"].Text = "X"
+t1["5"].Position = UDim2.new(0.94353, 0, 0, 0)
+t1["6"] = Instance.new("Frame", t1["2"])
+t1["6"].BorderSizePixel = 0
+t1["6"].BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+t1["6"].Size = UDim2.new(0, 273, 0, 106)
+t1["6"].Position = UDim2.new(0.35765, 0, 0.58103, 0)
+t1["6"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+t1["6"].Name = "Buttons"
+t1["7"] = Instance.new("TextButton", t1["6"])
+t1["7"].TextSize = 14
+t1["7"].TextColor3 = Color3.fromRGB(255, 255, 255)
+t1["7"].BackgroundColor3 = Color3.fromRGB(27, 27, 29)
+t1["7"].FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1["7"].Size = UDim2.new(0, 93, 0, 17)
+t1["7"].Name = "CopyR"
+t1["7"].BorderColor3 = Color3.fromRGB(139, 139, 139)
+t1["7"].Text = "Copy Remote"
+t1["7"].Position = UDim2.new(0.32967, 0, 0.08491, 0)
+t1["8"] = Instance.new("TextLabel", t1["7"])
+t1["8"].BorderSizePixel = 0
+t1["8"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+t1["8"].TextSize = 14
+t1["8"].FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1["8"].TextColor3 = Color3.fromRGB(0, 0, 0)
+t1["8"].Size = UDim2.new(0, 8, 0, 17)
+t1["8"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+t1["8"].Text = ""
+t1["8"].Name = "Border"
+t1["9"] = Instance.new("TextButton", t1["6"])
+t1["9"].TextSize = 14
+t1["9"].TextColor3 = Color3.fromRGB(255, 255, 255)
+t1["9"].BackgroundColor3 = Color3.fromRGB(27, 27, 29)
+t1["9"].FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1["9"].Size = UDim2.new(0, 83, 0, 17)
+t1["9"].Name = "CopyC"
+t1["9"].BorderColor3 = Color3.fromRGB(139, 139, 139)
+t1["9"].Text = "Copy Code"
+t1["9"].Position = UDim2.new(0, 0, 0.08491, 0)
+t1["9"].MouseButton1Click:Connect(function()
+    if setclipboard then
+        setclipboard(_G.Code)
 
--- Function to handle local on-screen notifications
-local function notify(message)
-	pcall(function()
-		game:GetService("StarterGui"):SetCore("SendNotification", {
-			Title = "Avatar Loader",
-			Text = message,
-			Duration = 3
-		})
-	end)
+        return
+    end
+
+    print("Your executer doesn't support clipboard")
+end)
+t1.a = Instance.new("TextLabel", t1["9"])
+t1.a.BorderSizePixel = 0
+t1.a.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+t1.a.TextSize = 14
+t1.a.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1.a.TextColor3 = Color3.fromRGB(0, 0, 0)
+t1.a.Size = UDim2.new(0, 8, 0, 17)
+t1.a.BorderColor3 = Color3.fromRGB(0, 0, 0)
+t1.a.Text = ""
+t1.a.Name = "Border"
+t1.b = Instance.new("TextButton", t1["6"])
+t1.b.TextSize = 14
+t1.b.TextColor3 = Color3.fromRGB(255, 255, 255)
+t1.b.BackgroundColor3 = Color3.fromRGB(27, 27, 29)
+t1.b.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1.b.Size = UDim2.new(0, 81, 0, 17)
+t1.b.Name = "Run"
+t1.b.BorderColor3 = Color3.fromRGB(139, 139, 139)
+t1.b.Text = "Run Code"
+t1.b.Position = UDim2.new(0.7033, 0, 0.08491, 0)
+t1.c = Instance.new("TextLabel", t1.b)
+t1.c.BorderSizePixel = 0
+t1.c.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+t1.c.TextSize = 14
+t1.c.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1.c.TextColor3 = Color3.fromRGB(0, 0, 0)
+t1.c.Size = UDim2.new(0, 8, 0, 17)
+t1.c.BorderColor3 = Color3.fromRGB(0, 0, 0)
+t1.c.Text = ""
+t1.c.Name = "Border"
+t1.d2 = Instance.new("TextButton", t1["6"])
+t1.d2.TextSize = 14
+t1.d2.TextColor3 = Color3.fromRGB(255, 255, 255)
+t1.d2.BackgroundColor3 = Color3.fromRGB(27, 27, 29)
+t1.d2.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1.d2.Size = UDim2.new(0, 83, 0, 17)
+t1.d2.Name = "Clear"
+t1.d2.BorderColor3 = Color3.fromRGB(139, 139, 139)
+t1.d2.Text = "Clear Output"
+t1.d2.Position = UDim2.new(0, 0, 0.33962, 0)
+t1.e2 = Instance.new("TextLabel", t1.d2)
+t1.e2.BorderSizePixel = 0
+t1.e2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+t1.e2.TextSize = 14
+t1.e2.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1.e2.TextColor3 = Color3.fromRGB(0, 0, 0)
+t1.e2.Size = UDim2.new(0, 8, 0, 17)
+t1.e2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+t1.e2.Text = ""
+t1.e2.Name = "Border"
+t1.d = Instance.new("ScrollingFrame", t1["2"])
+t1.d.Active = true
+t1.d.BorderSizePixel = 0
+t1.d.CanvasSize = UDim2.new(9999, 9999, 9999, 9999)
+t1.d.BackgroundColor3 = Color3.fromRGB(54, 54, 56)
+t1.d.Name = "Remotes"
+t1.d.ScrollBarImageTransparency = 1
+t1.d.Size = UDim2.new(0, 152, 0, 236)
+t1.d.ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0)
+t1.d.Position = UDim2.new(0, 0, 0.06719, 0)
+t1.d.BorderColor3 = Color3.fromRGB(0, 0, 0)
+t1.d.ScrollBarThickness = 0
+t1.d.LayoutOrder = 1
+t1.e = Instance.new("TextButton", t1.d)
+t1.e.BorderSizePixel = 3
+t1.e.TextSize = 14
+t1.e.TextColor3 = Color3.fromRGB(255, 255, 255)
+t1.e.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+t1.e.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+t1.e.Size = UDim2.new(0, 152, 0, 22)
+t1.e.BackgroundTransparency = 0.8
+t1.e.Name = "RemoteExample"
+t1.e.BorderColor3 = Color3.fromRGB(93, 96, 102)
+t1.e.Text = "RemoteName"
+t1.f = Instance.new("TextLabel", t1.e)
+t1.f.BorderSizePixel = 0
+t1.f.BackgroundColor3 = Color3.fromRGB(253, 242, 81)
+t1.f.TextSize = 14
+t1.f.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1.f.TextColor3 = Color3.fromRGB(0, 0, 0)
+t1.f.Size = UDim2.new(0, 10, 0, 22)
+t1.f.BorderColor3 = Color3.fromRGB(0, 0, 0)
+t1.f.Text = ""
+t1.f.Name = "border"
+t1["10"] = Instance.new("UIListLayout", t1.d)
+t1["10"].Padding = UDim.new(0, 7)
+t1["10"].SortOrder = Enum.SortOrder.LayoutOrder
+t1["11"] = Instance.new("TextBox", t1["2"])
+t1["11"].CursorPosition = -1
+t1["11"].Interactable = false
+t1["11"].TextColor3 = Color3.fromRGB(0, 0, 0)
+t1["11"].BorderSizePixel = 0
+t1["11"].TextXAlignment = Enum.TextXAlignment.Left
+t1["11"].TextWrapped = true
+t1["11"].TextSize = 15
+t1["11"].Name = "CodeSample"
+t1["11"].TextYAlignment = Enum.TextYAlignment.Top
+t1["11"].BackgroundColor3 = Color3.fromRGB(42, 45, 54)
+t1["11"].FontFace = Font.new("rbxasset://fonts/families/Balthazar.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+t1["11"].MultiLine = true
+t1["11"].ClearTextOnFocus = false
+t1["11"].Size = UDim2.new(0, 272, 0, 130)
+t1["11"].Position = UDim2.new(0.35784, 0, 0.06719, 0)
+t1["11"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+t1["11"].Text = ""
+print("Made by Danechka")
+print("https://rscripts.net/@danechka")
+game:GetService("TextChatService"):WaitForChild("TextChannels"):WaitForChild("RBXGeneral"):SendAsync("Hi, i'm cool! <3")
+t1["12"] = Instance.new("LocalScript", t1["2"])
+t1["12"].Name = "Drag"
+t1["13"] = Instance.new("LocalScript", t1["2"])
+t1["13"].Name = "Main"
+task.spawn(function()
+    local t112Parent = t1["12"].Parent
+    local UserInputService = game:GetService("UserInputService")
+    local u11
+    local u12
+    t112Parent.InputBegan:Connect(function(input)
+        local v40 = input.UserInputType == Enum.UserInputType.MouseButton1
+
+        if not v40 then
+            v40 = input.UserInputType == Enum.UserInputType.Touch
+        end
+
+        if v40 then
+            u11 = true
+
+            local _ = input.Position
+            local _ = t112Parent.Position
+
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    u11 = false
+                end
+            end)
+        end
+    end)
+    t112Parent.InputChanged:Connect(function(input)
+        local v44 = input.UserInputType == Enum.UserInputType.MouseMovement
+
+        if not v44 then
+            v44 = input.UserInputType == Enum.UserInputType.Touch
+        end
+
+        if v44 then
+            u12 = input
+        end
+    end)
+    UserInputService.InputChanged:Connect(function(input)
+        if input == u12 and u11 then
+            local v46 = input.Position - nil
+
+            t112Parent.Position = UDim2.new((nil).X.Scale, (nil).X.Offset + v46.X, (nil).Y.Scale, (nil).Y.Offset + v46.Y)
+        end
+    end)
+end)
+task.spawn(function()
+    local v13 = t1["13"]
+    local TweenService = game:GetService("TweenService")
+    local Parent = v13.Parent
+    local TopBar = Parent.TopBar
+
+    local function v17()
+        Parent.Parent:Destroy()
+    end;
+
+    (function()
+        TopBar.X.MouseEnter:Connect(function()
+            TweenService:Create(TopBar.X, TweenInfo.new(0.2), {
+				BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+			}):Play()
+        end)
+        TopBar.X.MouseLeave:Connect(function()
+            TweenService:Create(TopBar.X, TweenInfo.new(0.2), {
+				BackgroundColor3 = Color3.fromRGB(37, 35, 38)
+			}):Play()
+        end)
+        TopBar.X.MouseButton1Click:Connect(function()
+            v17()
+        end)
+        Parent.Buttons.Clear.MouseButton1Click:Connect(function()
+            for _, child in pairs(Parent.Remotes:GetChildren()) do
+                if child:IsA("TextButton") then
+                    child:Destroy()
+                end
+            end
+        end)
+    end)()
+end)
+
+local function u2(p1)
+    local t2 = {}
+
+    while p1 and p1 ~= game do
+        local p1Name = p1.Name
+
+        if p1Name:sub(1, 4) == "Game" then
+            p1Name = "game" .. p1Name:sub(5)
+        end
+
+        table.insert(t2, 1, p1Name)
+        p1 = p1.Parent
+    end
+
+    return table.concat(t2, ".")
 end
+local function u3(p2)
+    if typeof(p2) == "string" then
+        return string.format("%q", p2)
+    end
 
--- GUI Setup
-local function createGui()
-	local gui = Instance.new("ScreenGui")
-	gui.Name = "AvatarLoaderGui"
-	gui.ResetOnSpawn = false
-	
-	-- Routes safely to player screen without security errors
-	local playerGui = localPlayer:WaitForChild("PlayerGui")
-	gui.Parent = playerGui
+    if typeof(p2) == "number" then
+        return tostring(p2)
+    end
 
-	local frame = Instance.new("Frame")
-	frame.Size = UDim2.new(0, 250, 0, 110)
-	frame.Position = UDim2.new(0.5, -125, 0.5, -55)
-	frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-	frame.Active = true
-	frame.Parent = gui
+    if typeof(p2) == "boolean" then
+        return not p2 and "false" or "true"
+    end
 
-	local corner = Instance.new("UICorner")
-	corner.Parent = frame
+    if typeof(p2) == "Instance" then
+        return u2(p2)
+    end
 
-	local title = Instance.new("TextLabel")
-	title.Size = UDim2.new(1, 0, 0, 30)
-	title.BackgroundTransparency = 1
-	title.Text = "Avatar Copier"
-	title.TextColor3 = Color3.fromRGB(255, 255, 255)
-	title.Font = Enum.Font.GothamBold
-	title.TextSize = 16
-	title.Parent = frame
-
-	local input = Instance.new("TextBox")
-	input.Size = UDim2.new(0, 200, 0, 30)
-	input.Position = UDim2.new(0.5, -100, 0, 35)
-	input.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-	input.Text = ""
-	input.PlaceholderText = "Target UserID"
-	input.TextColor3 = Color3.fromRGB(255, 255, 255)
-	input.Parent = frame
-
-	local btn = Instance.new("TextButton")
-	btn.Size = UDim2.new(0, 200, 0, 30)
-	btn.Position = UDim2.new(0.5, -100, 0, 70)
-	btn.BackgroundColor3 = Color3.fromRGB(0, 150, 50)
-	btn.Text = "Apply Outfit"
-	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-	btn.Font = Enum.Font.GothamBold
-	btn.Parent = frame
-	
-	-- When clicked, verify input format and signal the server
-	btn.MouseButton1Click:Connect(function()
-		local targetId = tonumber(input.Text)
-		if targetId then
-			notify("Sending request to server...")
-			changeAvatarEvent:FireServer(targetId)
-		else
-			notify("Please enter a valid numeric ID.")
-		end
-	end)
+    return string.format("%q", tostring(p2))
 end
+local function u4(p3)
+    local t3 = {}
 
-createGui()
+    for i, v in ipairs(p3) do
+        t3[i] = string.format("[%d] = %s", i, u3(v))
+    end
+
+    return t3
+end
+local function v5(p4)
+    local t4 = {}
+    local v28 = p4
+
+    while v28 and v28.Parent ~= game do
+        local Name = v28.Name
+
+        if Name:sub(1, 4) == "Game" then
+            Name = "game" .. Name:sub(5)
+        end
+
+        table.insert(t4, 1, Name)
+        v28 = v28.Parent
+    end
+
+    local v30 = table.concat(t4, ".")
+
+    if p4:IsA("RemoteEvent") then
+        p4.OnClientEvent:Connect(function(...)
+            local v47 = u4({ ... })
+            local v48 = table.concat(v47, ",\n    ")
+
+            t1.yu = t1.e:Clone()
+            t1.yu.Name = p4.Name
+            t1.yu.Text = p4.Name
+            t1.yu.Parent = t1.d
+            t1.yu.MouseButton1Click:Connect(function()
+                _G.Code = string.format("local args = {\n    %s\n}\n%s:FireServer(unpack(args))", v48, v30)
+                t1["11"].Text = _G.Code
+            end)
+        end)
+
+        return
+    end
+
+    if p4:IsA("RemoteFunction") then
+        function p4.OnClientInvoke(...)
+            local v49 = u4({ ... })
+            local v50 = table.concat(v49, ",\n    ")
+
+            t1.yu2 = t1.e:Clone()
+            t1.yu2.Name = p4.Name
+            t1.yu2.Text = p4.Name
+            t1.yu2.Parent = t1.d
+            t1.yu2.MouseButton1Click:Connect(function()
+                _G.Code = string.format("local args = {\n    %s\n}\n%s:InvokeServer(unpack(args))", v50, v30)
+            end)
+
+            return ...
+        end
+    end
+end
+local t5 = {
+	game.ReplicatedStorage,
+	game.StarterGui,
+	game.StarterPack,
+	game.StarterPlayer
+}
+for _, v in ipairs(t5) do
+    (function(p5)
+        for _, descendant in ipairs(p5:GetDescendants()) do
+            local v34 = descendant:IsA("RemoteEvent")
+
+            if not v34 then
+                v34 = descendant:IsA("RemoteFunction")
+            end
+
+            if v34 then
+                v5(descendant)
+            end
+        end
+
+        p5.DescendantAdded:Connect(function(descendant)
+            local v52 = descendant:IsA("RemoteEvent")
+
+            if not v52 then
+                v52 = descendant:IsA("RemoteFunction")
+            end
+
+            if v52 then
+                v5(descendant)
+            end
+        end)
+    end)(v)
+    v.DescendantAdded:Connect(function(descendant)
+        local v36 = descendant:IsA("RemoteEvent")
+
+        if not v36 then
+            v36 = descendant:IsA("RemoteFunction")
+        end
+
+        if v36 then
+            v5(descendant)
+        end
+    end)
+end
+return t1["1"], require

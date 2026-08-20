@@ -1,0 +1,120 @@
+local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
+
+local localPlayer = Players.LocalPlayer
+
+local function notify(message)
+	pcall(function()
+		StarterGui:SetCore("SendNotification", {
+			Title = "Avatar Loader",
+			Text = message,
+			Duration = 3
+		})
+	end)
+end
+
+local function applyAvatarFromUserId(userId)
+	userId = tonumber(userId)
+	if not userId then
+		notify("Please enter a valid UserId.")
+		return
+	end
+
+	local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+	local humanoid = character:FindFirstChildOfClass("Humanoid") or character:WaitForChild("Humanoid")
+
+	local ok, description = pcall(function()
+		return Players:GetHumanoidDescriptionFromUserId(userId)
+	end)
+
+	if not ok or not description then
+		notify("Failed to load avatar for that UserId.")
+		return
+	end
+
+	local clone = character:Clone()
+	local applyHumanoid = clone:FindFirstChildOfClass("Humanoid")
+	if applyHumanoid then
+		applyHumanoid:ApplyDescription(description)
+	end
+
+	for _, child in ipairs(character:GetChildren()) do
+		if child:IsA("Accessory") or child:IsA("Shirt") or child:IsA("Pants") or child:IsA("BodyColors") then
+			child:Destroy()
+		end
+	end
+
+	local okApply = pcall(function()
+		humanoid:ApplyDescription(description)
+	end)
+
+	if okApply then
+		notify("Applied avatar locally.")
+	else
+		notify("Could not apply avatar locally.")
+	end
+end
+
+local function createGui()
+	local gui = Instance.new("ScreenGui")
+	gui.Name = "AvatarLoaderGui"
+	gui.ResetOnSpawn = false
+	gui.Parent = localPlayer:WaitForChild("PlayerGui")
+
+	local frame = Instance.new("Frame")
+	frame.Size = UDim2.new(0, 280, 0, 120)
+	frame.Position = UDim2.new(0.5, -140, 0.5, -60)
+	frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	frame.BorderSizePixel = 0
+	frame.Parent = gui
+
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, 8)
+	corner.Parent = frame
+
+	local title = Instance.new("TextLabel")
+	title.Size = UDim2.new(1, -20, 0, 24)
+	title.Position = UDim2.new(0, 10, 0, 8)
+	title.BackgroundTransparency = 1
+	title.Text = "Client-Side Avatar Loader"
+	title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	title.Font = Enum.Font.SourceSansBold
+	title.TextSize = 20
+	title.Parent = frame
+
+	local textBox = Instance.new("TextBox")
+	textBox.Size = UDim2.new(1, -20, 0, 32)
+	textBox.Position = UDim2.new(0, 10, 0, 40)
+	textBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+	textBox.PlaceholderText = "Enter UserId"
+	textBox.Text = ""
+	textBox.ClearTextOnFocus = false
+	textBox.Font = Enum.Font.SourceSans
+	textBox.TextSize = 18
+	textBox.Parent = frame
+
+	local textCorner = Instance.new("UICorner")
+	textCorner.CornerRadius = UDim.new(0, 6)
+	textCorner.Parent = textBox
+
+	local button = Instance.new("TextButton")
+	button.Size = UDim2.new(1, -20, 0, 30)
+	button.Position = UDim2.new(0, 10, 0, 80)
+	button.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+	button.TextColor3 = Color3.fromRGB(255, 255, 255)
+	button.Text = "Load Avatar Locally"
+	button.Font = Enum.Font.SourceSansBold
+	button.TextSize = 18
+	button.Parent = frame
+
+	local buttonCorner = Instance.new("UICorner")
+	buttonCorner.CornerRadius = UDim.new(0, 6)
+	buttonCorner.Parent = button
+
+	button.MouseButton1Click:Connect(function()
+		applyAvatarFromUserId(textBox.Text)
+	end)
+end
+
+createGui()
